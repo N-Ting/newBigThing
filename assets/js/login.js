@@ -11,6 +11,7 @@ $(function () {
   })
   // 自定义校验
   var form = layui.form
+  var layer = layui.layer
   form.verify({
     pwd: [
       /^[\S]{6,12}$/
@@ -37,9 +38,26 @@ $(function () {
         password: $('#form_reg [name=password]').val()
       },
       success: res => {
-        if (res.status !== 0) return console.log(res.message);
-        console.log('注册成功');
+        if (res.status !== 0) return layer.msg(res.message)
+        layer.msg('注册成功')
+        $('#link_login').click()
       }
     })
   })
-})
+  // 登录
+
+  $('#form_login').on('submit', function (e) {
+    e.preventDefault()
+
+    $.ajax({
+      type: 'post',
+      url: BASE + '/api/login',
+      data: $(this).serialize(),
+      success: res => {
+        if (res.status !== 0) return layer.msg('登陆失败')
+        layer.msg('登陆成功')
+        location.href = '/index.html'
+      }
+    })
+  })
+})  
