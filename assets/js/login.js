@@ -56,7 +56,8 @@ $(function () {
       success: res => {
         if (res.status !== 0) return layer.msg('登陆失败')
         layer.msg('登陆成功')
-        location.href = '/index.html'
+        // localStorage.setItem('token', res.token)
+        location.href = './index.html'
       }
     })
   })

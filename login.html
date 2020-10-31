@@ -19,7 +19,7 @@
     <div class="title_box"></div>
     <div class="login_box">
       <!-- 登陆表单 -->
-      <form class="layui-form">
+      <form class="layui-form" id="form_login">
         <!-- 用户名 -->
         <div class="layui-form-item">
           <i class="layui-icon layui-icon-username"></i>
@@ -78,8 +78,27 @@
   <script src="./assets/lib/layui/layui.all.js"></script>
   <!-- 导入JQuery -->
   <script src="./assets/lib/jquery.js"></script>
+  <!-- <script src="./assets/js/baseAPI.js"></script> -->
   <!-- 导入自己的js文件 -->
   <script src="./assets/js/login.js"></script>
+  <!-- <script>
+    var BASE = 'http://ajax.frontend.itheima.net'
+    $('#form_login').on('submit', function (e) {
+      e.preventDefault()
+
+      $.ajax({
+        type: 'post',
+        url: BASE + '/api/login',
+        data: $(this).serialize(),
+        success: res => {
+          if (res.status !== 0) return layer.msg('登陆失败')
+          layer.msg('登陆成功')
+          // localStorage.setItem('token', res.token)
+          location.href = './index.html'
+        }
+      })
+    })
+  </script> -->
 </body>
 
 </html>
