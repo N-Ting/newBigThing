@@ -26,13 +26,13 @@ $(function () {
     }
   })
 
-  var BASE = 'http://ajax.frontend.itheima.net'
+  // var BASE = 'http://ajax.frontend.itheima.net'
   //监听注册表单的事件
   $('#form_reg').on('submit', function (e) {
     e.preventDefault()
     $.ajax({
       type: 'post',
-      url: BASE + '/api/reguser',
+      url: '/api/reguser',
       data: {
         username: $('#form_reg [name=username]').val(),
         password: $('#form_reg [name=password]').val()
@@ -51,12 +51,12 @@ $(function () {
 
     $.ajax({
       type: 'post',
-      url: BASE + '/api/login',
+      url: '/api/login',
       data: $(this).serialize(),
       success: res => {
         if (res.status !== 0) return layer.msg('登陆失败')
         layer.msg('登陆成功')
-        // localStorage.setItem('token', res.token)
+        localStorage.setItem('token', res.token)
         location.href = './index.html'
       }
     })
