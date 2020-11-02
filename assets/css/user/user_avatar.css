@@ -69,3 +69,7 @@ body {
   overflow: hidden;
   border-radius: 50%;
 }
+/* 隐藏文件 */
+#file{
+  display: none;
+}

@@ -13,7 +13,7 @@ $(function () {
   })
 })
 // 封装一个获取用户信息的函数
-function getUserInfo (params) {
+function getUserInfo () {
   $.ajax({
     url: '/my/userinfo',
     // 请求头配置对象

@@ -48,7 +48,7 @@ $(function () {
 
   $('#form_login').on('submit', function (e) {
     e.preventDefault()
-
+    console.log($(this).serialize());
     $.ajax({
       type: 'post',
       url: '/api/login',
