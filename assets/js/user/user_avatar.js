@@ -51,9 +51,9 @@ $(function () {
         avatar: dataURL
       },
       success: res => {
-        if (res.status != 0) return layer.msg('更新头像失败')
+        if (res.status !== 0) return layer.msg('更新头像失败')
         layer.msg('更换头像成功')
-        console.log(res);
+        // console.log(res);
         // 更新用户信息
         window.top.getUserInfo()
       }
