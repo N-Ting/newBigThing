@@ -19,33 +19,31 @@ $(function () {
   }
   // 初始化富文本编辑器
   initEditor()
-  // 1. 初始化图片裁剪器
-  var $image = $('#image')
+  // // 1. 初始化图片裁剪器
+  // var $image = $('#image')
 
-  // 2. 裁剪选项
-  var options = {
-    aspectRatio: 400 / 280,
-    preview: '.img-preview'
-  }
+  // // 2. 裁剪选项
+  // var options = {
+  //   aspectRatio: 400 / 280,
+  //   preview: '.img-preview'
+  // }
 
-  // 3. 初始化裁剪区域
-  $image.cropper(options)
+  // // 3. 初始化裁剪区域
+  // $image.cropper(options)
   // 给选择图片设置点击事件
   $('#files').on('click', function () {
     $('[type=file]').click()
   })
   $('#coverFile').on('change', function (e) {
     // 将选择的文件赋值给变量file
-    let files = e.target.files[0]
-    // 判断用户是否选中文件
-    if (files.length === 0) return
+    let file = e.target.files[0]
     // 根据选择的文件创建url地址
-    let newImgURL = URL.createObjectURL(files)
-    // console.log(newImgURL);
+    let newImgURL = URL.createObjectURL(file)
     $image.cropper('destroy')      // 销毁旧的裁剪区域
       .attr('src', newImgURL)  // 重新设置图片路径   
       .cropper(options)        // 重新初始化裁剪区域
   })
+
   // 定义文章发布的状态
   let art_cate = '已发布'
   // 当点击草稿按钮时，文章状态为草稿
@@ -91,4 +89,38 @@ $(function () {
       }
     })
   }
+
+  // 通过location.search获取到url里的查询字符串
+  // console.log(location.search);
+  let idx = location.search.substring(1).split('=')[1]
+  // console.log(idx);
+  // 发送ajax请求
+  $.ajax({
+    url: '/my/article/' + idx,
+    data: {
+      Id: idx
+    },
+    success: res => {
+      console.log(res);
+      // 使用form.val()将获取到的数据赋值给表单,需要给form设置lay-filter
+      form.val('article-form', res.data);
+      setTimeout(function () {
+        $('[name=cate_id]').find(`option[value=${res.data.cate_id}]`).prop('selected', true);
+        form.render();
+        // 将获取到的图片路径赋值给#image
+        $('#image').prop('src', 'http://ajax.frontend.itheima.net' + res.data.cover_img)
+        // 1. 初始化图片裁剪器
+        var $image = $('#image')
+
+        // 2. 裁剪选项
+        var options = {
+          aspectRatio: 400 / 280,
+          preview: '.img-preview'
+        }
+        // 3. 初始化裁剪区域
+        $image.cropper(options);
+      }, 1000);
+
+    }
+  })
 })
